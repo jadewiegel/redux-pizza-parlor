@@ -1,11 +1,34 @@
-function PizzaItem({pizzaItemProp}){
+import './PizzaItem.css';
+
+function PizzaItem(props){
+
+    const addPizza = (pizzaItem) => {
+        props.addPizzaProp(pizzaItem)
+    }
+
+    const removePizza = (pizzaItem) => {
+        props.deletePizzaProp(pizzaItem)
+    }
+
     return(
         <>
             <div class="pizza-item">
-                <img src={pizzaItemProp.image_path} />
-                <h2>{pizzaItemProp.name}</h2> 
-                <p>{pizzaItemProp.description}</p> 
-                <p>{pizzaItemProp.price}</p>
+                <img src={props.pizzaItemProp.image_path} />
+                <h2>{props.pizzaItemProp.name}</h2> 
+                <p>{props.pizzaItemProp.description}</p> 
+                <p>{props.pizzaItemProp.price}</p>
+                <button
+                    id={props.pizzaItemProp.id}
+                    onClick={
+                        () => {addPizza(props.pizzaItemProp)}
+                    }
+                >ADD PIZZA</button>
+                <button
+                    id={props.pizzaItemProp.id}
+                    onClick={
+                        () => {removePizza(props.pizzaItemProp)}
+                    }
+                >REMOVE PIZZA</button>
             </div>
         </>
     )
