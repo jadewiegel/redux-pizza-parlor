@@ -16,7 +16,6 @@ const CustomerForm = ({submitOrder, totalCost}) => {
 
     return (
         <div>
-            {totalCost}
             <form onSubmit={handleSubmit}>
                 <input
                     onChange={(event) => setCustomerName(event.target.value)}
