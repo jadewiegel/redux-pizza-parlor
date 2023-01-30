@@ -51,30 +51,26 @@ function App() {
   const removeOrderItem = ((id) => {
     
     for (let i=0; i<order.length; i++){
-    // for (let item of order) {
         console.log('in loop with id of: ', order[i].id);
         
       
+      // if (id != order[i].id) {
+      //   // alert('This pizza it not in the cart');
+      // } 
       if (id === order[i].id) {
         removeCost(Number(totalCost), Number(order[i].price));
-      }
-    } 
-    // return alert('This pizza it not in the cart');
-  })     
+      }}})
+  
+       
   
    
 
   //function to add pizza
   const addPizza = ((pizza) => {
     console.log('in add pizza with id: ', pizza.id);
-    // setOrder(order + pizza);
     order.push(pizza);
-    // setOrderCost(pizza.price);
-    // setOrderItem(pizza.name);
     setTotalCost(totalCost + pizza.price);
     addCost(totalCost, pizza.price);
-    // removeOrderItem(pizza.id);
-    // console.log('These are the items ordered, ', orderItem);
   })
   
   
@@ -84,15 +80,6 @@ function App() {
     setOrderCost('');
     setOrderItem('');
     removeOrderItem(pizza.id);
-    
-    // return (
-    //   {order.map(orderItem => ( 
-    //     if (pizza.id === orderItem.id) {
-    //       removeCost(totalCost, pizza.price)
-    //     )
-    //     return alert('this pizza is not in your basket');   
-    //   ))}
-    //   )
     })
     
   return (    
