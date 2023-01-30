@@ -3,6 +3,7 @@ import axios from 'axios';
 import './App.css';
 import {useState, useEffect} from 'react';
 import PizzaList from '../PizzaList/PizzaList';
+import CustomerForm from '../CustomerForm/CustomerForm';
 
 function App() {
 
@@ -34,6 +35,22 @@ function App() {
       console.log('error with GET pizza list: ', error);
     });
   }
+
+  //POST
+  const submitOrder = (customer_name, street_address, city, zip, type) => {
+    axios ({
+      mehtod: 'POST',
+      url: '/api/order',
+      data: {
+        customer_name,
+        street_address,
+        city,
+        zip,
+        type
+      }
+    })
+  }
+
   
   const addCost = ((a, b) => {
     return (
@@ -89,7 +106,7 @@ function App() {
       </header>
 
       <div>
-      {JSON.stringify({order})}
+      {/* {JSON.stringify({order})} */}
         <h2>
           Total: {totalCost} 
         </h2>
@@ -104,6 +121,8 @@ function App() {
 
       <p>Pizza is great.</p>
       <button class='nextButton' onClick="">Next</button>
+
+      <CustomerForm submitOrder={submitOrder} />
     </div>
   );
 }
