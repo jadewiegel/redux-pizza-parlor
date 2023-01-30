@@ -8,8 +8,10 @@ function App() {
 
   const [pizzaList, setPizzaList] = useState([]);
   const [orderCost, setOrderCost] = useState('');
-  const [orderItem, setOrderItem] = useState('');
+  const [orderItem, setOrderItem] = useState([]);
   const [totalCost, setTotalCost] = useState(0);
+  const [order, setOrder] = useState([]);
+  // const [orderedItems, setOrderedItems] = useState([]);
 
   // let totalCost = 0;
   
@@ -36,6 +38,7 @@ function App() {
   const addCost = ((a, b) => {
     return (
       setTotalCost(Number(a) + Number(b))
+      
     )
   })
   
@@ -45,23 +48,53 @@ function App() {
     )
   })
 
+  const removeOrderItem = ((id) => {
+    
+    for (let i=0; i<order.length; i++){
+    // for (let item of order) {
+        console.log('in loop with id of: ', order[i].id);
+        
+      
+      if (id === order[i].id) {
+        removeCost(Number(totalCost), Number(order[i].price));
+      }
+    } 
+    // return alert('This pizza it not in the cart');
+  })     
+  
+   
+
   //function to add pizza
   const addPizza = ((pizza) => {
-    setOrderCost(pizza.price);
-    setOrderItem(pizza.name);
-    // setTotalCost(totalCost + pizza.price);
+    console.log('in add pizza with id: ', pizza.id);
+    // setOrder(order + pizza);
+    order.push(pizza);
+    // setOrderCost(pizza.price);
+    // setOrderItem(pizza.name);
+    setTotalCost(totalCost + pizza.price);
     addCost(totalCost, pizza.price);
+    // removeOrderItem(pizza.id);
+    // console.log('These are the items ordered, ', orderItem);
   })
   
   
   //delete pizza
   const deletePizza = ((pizza) => {
+    console.log('in delete pizza with pizza.id', pizza.id);
     setOrderCost('');
-    setOrderItem('');    
-    removeCost(totalCost, pizza.price);
-
-  })
-  
+    setOrderItem('');
+    removeOrderItem(pizza.id);
+    
+    // return (
+    //   {order.map(orderItem => ( 
+    //     if (pizza.id === orderItem.id) {
+    //       removeCost(totalCost, pizza.price)
+    //     )
+    //     return alert('this pizza is not in your basket');   
+    //   ))}
+    //   )
+    })
+    
   return (    
     <div className='App'>
       <header className='App-header'>
@@ -69,14 +102,14 @@ function App() {
       </header>
 
       <div>
-      {/* {JSON.stringify({pizzaOrder})} */}
+      {JSON.stringify({order})}
         <h2>
           Total: {totalCost} 
         </h2>
         <br/>
-        {orderCost}
+        {/* {orderCost}
         <br />
-        {orderItem}
+        {orderItem} */}
       </div>
 
       {/* {JSON.stringify({pizzaList})} */}
