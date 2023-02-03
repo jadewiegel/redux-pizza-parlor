@@ -2,10 +2,12 @@ import React from 'react';
 import axios from 'axios';
 import './App.css';
 import {useState, useEffect} from 'react';
-// import { useHistory } from 'react-router-dom';
 import PizzaList from '../PizzaList/PizzaList';
 import CustomerForm from '../CustomerForm/CustomerForm';
+import Checkout from '../Checkout/Checkout';
 import { HashRouter as Router, Route, Link, useHistory } from "react-router-dom";
+import NextButton from '../NextButton/NextButton';
+
 
 function App() {
 
@@ -14,6 +16,8 @@ function App() {
   const [orderItem, setOrderItem] = useState([]);
   const [totalCost, setTotalCost] = useState(0);
   const [order, setOrder] = useState([]);
+  const [navigateTo, setNavigateTo] = useState('CustomerForm');
+
   // const [orderedItems, setOrderedItems] = useState([]);
 
   const history = useHistory();
@@ -101,11 +105,16 @@ function App() {
     removeOrderItem(pizza.id);
     })
 
-    // route change to customer form on next click
-    const routeChange = (()=> {
-      console.log(history);
-      // history.push('/customerForm');      
-    })
+    // function* nextNavigation () {
+    //   yield <Link to='/customerForm'></Link>
+    //   nextNavigationInstance.next();
+    //   yield <Link to='/checkout'></Link>
+    //   nextNavigationInstance.next();
+    // }
+
+    // const nextNavigationInstance = nextNavigation();
+
+
     
   return (    
     <Router>
@@ -116,17 +125,17 @@ function App() {
 
           <div>
           {/* {JSON.stringify({order})} */}
-            <h2>
+            <h2 class="totalCost">
               Total: {totalCost} 
             </h2>
-            <br/>
+            
             {/* {orderCost}
             <br />
           {orderItem} */}
           </div>
 
           {/* {JSON.stringify({pizzaList})} */}
-          <Route path='/' exact>
+          {/* <Route path='/' exact>
             <PizzaList pizzaListProp={pizzaList} addPizzaProp={addPizza} deletePizzaProp={deletePizza} />
           </Route>
           <p>Pizza is great.</p>
@@ -134,12 +143,24 @@ function App() {
           <Route path='/customerForm' exact>
             <CustomerForm submitOrder={submitOrder} totalCost={totalCost}/>
           </Route>
-          <br />
-          <nav>
-            <button className='nextButton'>
-              <Link to='/customerForm'>Next</Link>
-            </button>
-          </nav>
+          <br /><br />
+          
+          <Route path='/checkout' exact>
+                <Checkout />
+          </Route> */}
+          <NextButton submitOrder={submitOrder} totalCost={totalCost}/>
+            {/* <nav>
+                <button className='nextButton'>
+                <Link to='/checkout'>Next</Link>
+                </button>
+            </nav> */}
+            {/* <nav>
+              
+              <button className='nextButton' onClick={nextNavigation}>
+                Next
+                {/* <Link to='/customerForm'>Next</Link> */}
+              {/* </button>
+            </nav> */}
       </div>
     </Router>
   );

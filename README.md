@@ -91,20 +91,20 @@ When visiting [http://localhost:3000/](http://localhost:3000/)
 [x] Allow users to add or remove each pizza they would like to order. **For base mode, only allow the user to have one of each pizza in their cart.** 
 [x] Show the total cost of items in the cart in the top right of this page. 
 
-This page should have a next button that brings the user to the **enter order details page**.
+[x] This page should have a next button that brings the user to the **enter order details page**.
 
 ![Select Pizza View](wireframes/screen-one.png)
 
 ### ORDER - ENTER CUSTOMER INFORMATION
 
-Collect user information
+[x] Collect user information
   *name*
   *street address*
   *city*
   *zip*
 
-This page should have an option to select pickup vs. delivery. 
-The total cost of the order should appear in the top right of this page. 
+[x] This page should have an option to select pickup vs. delivery. 
+[x] The total cost of the order should appear in the top right of this page. 
 This page should have a next button that brings the user to the **checkout** page.
 
 ![Select Pizza View](wireframes/screen-two.png)

@@ -1,7 +1,8 @@
 import {useState, useEffect} from 'react';
-import {useHistory} from 'react-router-dom';
+import { HashRouter as Router, Route, Link, useHistory } from "react-router-dom";
 
-function CustomerForm ({submitOrder, totalCost}) {
+
+const CustomerForm = ({submitOrder, totalCost}) => {
     const [customerName, setCustomerName] = useState();
     const [customerAddress, setCustomerAddress] = useState();
     const [customerCity, setCustomerCity] = useState();
@@ -18,6 +19,7 @@ function CustomerForm ({submitOrder, totalCost}) {
     }
 
     return (
+        <Router>
         <div>
             <form onSubmit={handleSubmit}>
                 <input
@@ -25,33 +27,39 @@ function CustomerForm ({submitOrder, totalCost}) {
                     value={customerName}
                     placeholder="Name"
                 />
-                <br />
+                <br /><br />
                   <input
                     onChange={(event) => setCustomerAddress(event.target.value)}
                     value={customerAddress}
                     placeholder="Street Address"
                 />
-                <br />
+                <br /><br />
                 <input
                     onChange={(event) => setCustomerCity(event.target.value)}
                     value={customerCity}
                     placeholder="City"
                 />
-                <br />
+                <br /><br />
                 <input
                     onChange={(event) => setCustomerZipcode(event.target.value)}
                     value={customerZipcode}
                     placeholder="Zipcode"
                 />
-                <br />
+                <br /><br />
                 <select value={(event) => setType(event.target.value)}>
                     <option value="Pickup">Pickup</option>
                     <option value="Delivery">Delivery</option>
                 </select>
             </form>
+
+            
         </div>
+        <Checkout customerName={customerName} customerAddress={customerAddress} customerCity={customerCity} customerZipcode={customerZipcode} type={type} />
+        </Router>
+
     )
 }
+
 export default CustomerForm;
 
 

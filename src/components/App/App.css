@@ -13,3 +13,8 @@
 .App-title {
   font-size: 2em;
 }
+
+.totalCost {
+  text-align: right;
+  padding: 60px;
+}
