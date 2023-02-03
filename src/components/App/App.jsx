@@ -2,8 +2,10 @@ import React from 'react';
 import axios from 'axios';
 import './App.css';
 import {useState, useEffect} from 'react';
+// import { useHistory } from 'react-router-dom';
 import PizzaList from '../PizzaList/PizzaList';
 import CustomerForm from '../CustomerForm/CustomerForm';
+import { HashRouter as Router, Route, Link, useHistory } from "react-router-dom";
 
 function App() {
 
@@ -14,7 +16,7 @@ function App() {
   const [order, setOrder] = useState([]);
   // const [orderedItems, setOrderedItems] = useState([]);
 
-  // let totalCost = 0;
+  const history = useHistory();
   
   useEffect(() => {
     fetchPizzas();
@@ -46,18 +48,18 @@ function App() {
         street_address,
         city,
         zip,
-        type
+        type,
       }
     })
   }
 
   
-  const addCost = ((a, b) => {
+  const addCost = (() => {
+    for (let i=0; i<order.length; i++){
     return (
       setTotalCost(Number(a) + Number(b))
-      
     )
-  })
+  }})
   
   const removeCost = ((a, b) => {
     return (
@@ -86,7 +88,7 @@ function App() {
   const addPizza = ((pizza) => {
     console.log('in add pizza with id: ', pizza.id);
     order.push(pizza);
-    setTotalCost(totalCost + pizza.price);
+    setTotalCost(Number(totalCost) + Number(pizza.price));
     addCost(totalCost, pizza.price);
   })
   
@@ -98,33 +100,50 @@ function App() {
     setOrderItem('');
     removeOrderItem(pizza.id);
     })
+
+    // route change to customer form on next click
+    const routeChange = (()=> {
+      console.log(history);
+      // history.push('/customerForm');      
+    })
     
   return (    
-    <div className='App'>
-      <header className='App-header'>
-        <h1 className='App-title'>Prime Pizza</h1>
-      </header>
+    <Router>
+      <div className='App'>
+          <header className='App-header'>
+            <h1 className='App-title'>Prime Pizza</h1>
+          </header>
 
-      <div>
-      {/* {JSON.stringify({order})} */}
-        <h2>
-          Total: {totalCost} 
-        </h2>
-        <br/>
-        {/* {orderCost}
-        <br />
-        {orderItem} */}
+          <div>
+          {/* {JSON.stringify({order})} */}
+            <h2>
+              Total: {totalCost} 
+            </h2>
+            <br/>
+            {/* {orderCost}
+            <br />
+          {orderItem} */}
+          </div>
+
+          {/* {JSON.stringify({pizzaList})} */}
+          <Route path='/' exact>
+            <PizzaList pizzaListProp={pizzaList} addPizzaProp={addPizza} deletePizzaProp={deletePizza} />
+          </Route>
+          <p>Pizza is great.</p>
+            
+          <Route path='/customerForm' exact>
+            <CustomerForm submitOrder={submitOrder} totalCost={totalCost}/>
+          </Route>
+          <br />
+          <nav>
+            <button className='nextButton'>
+              <Link to='/customerForm'>Next</Link>
+            </button>
+          </nav>
       </div>
-
-      {/* {JSON.stringify({pizzaList})} */}
-      <PizzaList pizzaListProp={pizzaList} addPizzaProp={addPizza} deletePizzaProp={deletePizza} />
-
-      <p>Pizza is great.</p>
-      <button class='nextButton' onClick="">Next</button>
-
-      <CustomerForm submitOrder={submitOrder} />
-    </div>
+    </Router>
   );
 }
+
 
 export default App;

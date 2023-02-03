@@ -6,7 +6,7 @@ function PizzaList (props) {
         <>            
             {/* {JSON.stringify({pizzaListProp})} */}
             <h2>PIZZA OPTIONS</h2>
-                <div class="pizza-container">
+                <div className="pizza-container">
                     {props.pizzaListProp.map(pizza => (            
                             <PizzaItem pizzaItemProp = {pizza} addPizzaProp={props.addPizzaProp} deletePizzaProp={props.deletePizzaProp} />                
                     )
